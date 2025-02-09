@@ -1,13 +1,43 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { TaskDto } from './dto/task.dto';
-import { TaskService } from './task.service';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { CreateTaskDTO } from './dto/CreateTask.dto';
+import { TaskRepository } from './task.repository';
+import { TaskEntity } from './task.entity';
+import { randomUUID } from 'crypto';
+import { UpdateTaskDTO } from './dto/UpdateTask.dto';
 
-@Controller('task')
+@Controller('/tasks')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(private taskRepository: TaskRepository) {}
+
+  @Get()
+  async listTasks() {
+    return this.taskRepository.listAllTasks();
+  }
 
   @Post()
-  create(@Body() task: TaskDto) {
-    this.taskService.create(task);
+  async createNewTask(@Body() taskData: CreateTaskDTO) {
+    const taskEntity = new TaskEntity();
+    taskEntity.description = taskData.description;
+    taskEntity.id = randomUUID();
+    taskEntity.title = taskData.title;
+
+    await this.taskRepository.saveTask(taskEntity);
+
+    return {
+      task: taskEntity.title,
+      message: 'A new task has been created successfully',
+    };
+  }
+
+  @Put('/:id')
+  async updateTask(
+    @Param('id') id: string,
+    @Body() updatedTask: UpdateTaskDTO,
+  ) {
+    const taskUpdated = await this.taskRepository.updateTask(id, updatedTask);
+    return {
+      task: taskUpdated,
+      message: 'Task information has been updated successfully',
+    };
   }
 }
