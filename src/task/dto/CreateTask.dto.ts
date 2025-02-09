@@ -10,6 +10,7 @@ export class CreateTaskDTO {
     message: 'The title contains forbidden words in Portuguese',
   })
   title: string;
+
   @HasForbiddenNames({
     message: 'The description contains forbidden words in Portuguese',
   })

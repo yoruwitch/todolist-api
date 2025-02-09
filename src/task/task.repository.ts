@@ -24,10 +24,6 @@ export class TaskRepository {
     );
   }
 
-  async containsForbiddenNames(title: string) {
-    const lowerCaseName = title.toLowerCase();
-    return this.forbiddenPatterns.some((regex) => regex.test(lowerCaseName));
-  }
   async saveTask(task: TaskEntity) {
     this.tasks.push(task);
   }
@@ -43,6 +39,11 @@ export class TaskRepository {
     }
 
     return task;
+  }
+
+  async containsForbiddenNames(text: string) {
+    const lowerCaseText = text.toLowerCase();
+    return this.forbiddenPatterns.some((regex) => regex.test(lowerCaseText));
   }
 
   async updateTask(id: string, dataToUpdate: Partial<TaskEntity>) {
