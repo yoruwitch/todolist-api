@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateTaskDTO } from './dto/CreateTask.dto';
 import { TaskRepository } from './task.repository';
 import { TaskEntity } from './task.entity';
@@ -38,6 +46,15 @@ export class TaskController {
     return {
       task: taskUpdated,
       message: 'Task information has been updated successfully',
+    };
+  }
+
+  @Delete('/:id')
+  async deleteUser(@Param('id') id: string) {
+    const deletedTask = await this.taskRepository.remove(id);
+    return {
+      user: deletedTask,
+      message: 'The task has been removed successfully',
     };
   }
 }

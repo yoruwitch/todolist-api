@@ -54,7 +54,12 @@ export class TaskRepository {
       }
       taskUpdated[key] = value;
     });
-
     return taskUpdated;
+  }
+
+  async remove(id: string) {
+    const taskToDelete = this.findTaskById(id);
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+    return taskToDelete;
   }
 }
