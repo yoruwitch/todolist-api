@@ -10,16 +10,20 @@ import {
 import { CreateTaskDTO } from './dto/CreateTask.dto';
 import { TaskRepository } from './task.repository';
 import { TaskEntity } from './task.entity';
-import { randomUUID } from 'crypto';
 import { UpdateTaskDTO } from './dto/UpdateTask.dto';
+import { TaskService } from './task.service';
+import { randomUUID } from 'crypto';
 
 @Controller('/tasks')
 export class TaskController {
-  constructor(private taskRepository: TaskRepository) {}
+  constructor(
+    private taskRepository: TaskRepository,
+    private taskService: TaskService,
+  ) {}
 
   @Get()
   async listTasks() {
-    return this.taskRepository.listAllTasks();
+    return this.taskService.listTasks();
   }
 
   @Post()
@@ -29,8 +33,7 @@ export class TaskController {
     taskEntity.id = randomUUID();
     taskEntity.title = taskData.title;
 
-    await this.taskRepository.saveTask(taskEntity);
-
+    await this.taskService.createTask(taskEntity);
     return {
       task: taskEntity.title,
       message: 'A new task has been created successfully',
@@ -42,7 +45,7 @@ export class TaskController {
     @Param('id') id: string,
     @Body() updatedTask: UpdateTaskDTO,
   ) {
-    const taskUpdated = await this.taskRepository.updateTask(id, updatedTask);
+    const taskUpdated = await this.taskService.updateTask(id, updatedTask);
     return {
       task: taskUpdated,
       message: 'Task information has been updated successfully',
@@ -51,7 +54,7 @@ export class TaskController {
 
   @Delete('/:id')
   async deleteUser(@Param('id') id: string) {
-    const deletedTask = await this.taskRepository.remove(id);
+    const deletedTask = await this.taskService.deleteTask(id);
     return {
       user: deletedTask,
       message: 'The task has been removed successfully',

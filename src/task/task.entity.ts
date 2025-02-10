@@ -15,7 +15,7 @@ export class TaskEntity {
   @Column({ name: 'title', length: 100, nullable: false })
   title: string;
 
-  @Column({ name: 'title', length: 150, nullable: false })
+  @Column({ name: 'description', length: 150, nullable: false })
   description: string;
 
   @CreateDateColumn({ name: 'created_at' })

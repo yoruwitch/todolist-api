@@ -1,6 +1,5 @@
 import {
   registerDecorator,
-  ValidationArguments,
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
@@ -16,11 +15,11 @@ export class HasForbiddenNamesValidator
 {
   constructor(private taskRepository: TaskRepository) {}
 
-  async validate(
-    value: any,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    validationArguments?: ValidationArguments,
-  ): Promise<boolean> {
+  async validate(value: any): Promise<boolean> {
+    if (!value || typeof value !== 'string' || value.trim() === '') {
+      return true;
+    }
+
     const containsForbiddenNames =
       await this.taskRepository.containsForbiddenNames(value);
     return !containsForbiddenNames;
