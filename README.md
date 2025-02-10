@@ -5,8 +5,7 @@ Welcome to the Todo List API! This project is a tech challenge for Tensority. It
 ## Features ✨
 
 - Create, read, update, and delete (CRUD) todos
-- Organize todos by categories
-- Mark todos as completed
+
 - Blocklist (TODO)
 
 ## Technologies Used 🛠️
@@ -14,6 +13,7 @@ Welcome to the Todo List API! This project is a tech challenge for Tensority. It
 - Node.js
 - NestJS
 - PostgreSQL
+- Docker
 
 
 ## Getting Started 🚀
@@ -34,15 +34,8 @@ Welcome to the Todo List API! This project is a tech challenge for Tensority. It
   ```bash
   npm install
   ```
-
-### Database Setup
-- TODO
-  
-
 ## API Endpoints 📚
-
-- TODO
 
 ## Contributing 🤝
 
-Feel free to fork this project, submit issues and pull requests. Contributions are always welcome!
+Feel free to fork this project, submit issues, and pull requests. Contributions are always welcome!
