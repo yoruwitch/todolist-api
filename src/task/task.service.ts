@@ -20,7 +20,7 @@ export class TaskService {
   async listTasks() {
     const listedTasks = await this.taskRepository.find();
     const listTasks = listedTasks.map(
-      (task) => new ListTaskDTO(task.id, task.title),
+      (task) => new ListTaskDTO(task.id, task.title, task.description),
     );
     return listTasks;
   }
