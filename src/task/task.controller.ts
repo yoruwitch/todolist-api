@@ -29,13 +29,16 @@ export class TaskController {
   @Post()
   async createNewTask(@Body() taskData: CreateTaskDTO) {
     const taskEntity = new TaskEntity();
+
     taskEntity.description = taskData.description;
     taskEntity.id = randomUUID();
     taskEntity.title = taskData.title;
 
     await this.taskService.createTask(taskEntity);
     return {
-      task: taskEntity.title,
+      id: taskEntity.id,
+      title: taskEntity.title,
+      description: taskEntity.description,
       message: 'A new task has been created successfully',
     };
   }

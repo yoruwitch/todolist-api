@@ -27,6 +27,7 @@ export class TaskService {
 
   async updateTask(id: string, taskEntity: UpdateTaskDTO) {
     await this.taskRepository.update(id, taskEntity);
+    return taskEntity;
   }
 
   async deleteTask(id: string) {
