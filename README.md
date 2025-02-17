@@ -1,6 +1,6 @@
 # Todo List API 📝
 
-Welcome to the Todo List API! This project is a tech challenge for Tensority. It's a simple RESTful API that uses PostgreSQL as the database.
+Welcome to the Todo List API! This project is a tech challenge for Tensority. It's a simple RESTful API that uses PostgreSQL as the database. ALso submit to: https://roadmap.sh/projects/task-tracker
 
 ## Features ✨
 
